@@ -28,7 +28,7 @@ import markdown
 
 ## 선언부 ===================================================================================
 #csv 파일 지정 (dummy_data)
-csv_file_name = 'test-Grid view.csv'
+csv_file_name = 'D:/kukbee/openAI/src/test-Grid view.csv'
 
 # Tistory API 정보
 access_token = '34f480733ac9f3592343139a67ba31b5_1ca90676ca465f4a4f57fdec0c32aef2 '

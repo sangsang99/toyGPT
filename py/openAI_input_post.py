@@ -10,7 +10,7 @@ import random
 
 ## 선언부 ===================================================================================
 # OpenAI API와 Unsplash API 키를 가져옵니다.
-openai_api_key = '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'
+openai_api_key = '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'
 unsplash_api_key = 'j4rsrj3w0tfUhsMYHDANh8XErA7SOFfXvWG_2aNamRc'
 
 # Tstory API 정보
@@ -20,6 +20,8 @@ blog_name = 'idolphin'
 # Tistory Open API URL
 tistory_post_url = 'https://www.tistory.com/apis/post/write'
 
+#csv저장 절대경로
+csv_path = 'D:\kukbee\openAI\src\\'
 
 ## 함수정의 ===================================================================================
 def get_blog_content(api_key, prompt, length=2000):
@@ -68,7 +70,8 @@ def get_image_url(api_key, query):
 
 def save_to_csv(data, filename):
     """데이터를 입력받아 CSV 파일로 저장하는 함수"""
-    
+    filename = csv_path + filename
+
     if not os.path.exists(filename):
         with open(filename, 'w', newline='') as file:
             writer = csv.writer(file)
@@ -97,7 +100,7 @@ save_to_csv(data, filename)
 
 ##동작_블로그 포스팅 ===================================================================================
 #csv 파일에서 데이터 읽어오기
-csv_file_name = prompt + '.csv'
+csv_file_name = csv_path + prompt + '.csv'
 with open(csv_file_name, 'r', encoding='utf-8') as f:
     reader = csv.reader(f)
     for i, row in enumerate(reader):
