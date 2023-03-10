@@ -10,7 +10,7 @@ import random
 
 ## 선언부 ===================================================================================
 # OpenAI API와 Unsplash API 키를 가져옵니다.
-openai_api_key = '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'
+openai_api_key = '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'
 unsplash_api_key = 'j4rsrj3w0tfUhsMYHDANh8XErA7SOFfXvWG_2aNamRc'
 
 # Tstory API 정보
@@ -21,7 +21,7 @@ blog_name = 'idolphin'
 tistory_post_url = 'https://www.tistory.com/apis/post/write'
 
 #csv저장 절대경로
-csv_path = 'D:\kukbee\openAI\src\\'
+csv_path = 'D:\kukbee\openAI\csv\\'
 
 ## 함수정의 ===================================================================================
 def get_blog_content(api_key, prompt, length=2000):
