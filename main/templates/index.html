@@ -1,6 +1,13 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+<!-- <script>
+    function btn_prompt(){
+        var form = document.getElementById('#frm');
+        form.submit();
+    }
+</script>
+-->
     <div class="container mt-5">
         <div class="row">
             <div class="col-lg-8">
@@ -34,10 +41,12 @@
                 <div class="card mb-4">
                     <div class="card-header">prompt 다시입력하기</div>
                     <div class="card-body">
-                        <div class="input-group">
-                            <input class="form-control" type="text" placeholder="write post title" aria-label="write post title" aria-describedby="button-search" />
-                            <button class="btn btn-primary" id="button-search" type="button">Go!</button>
-                        </div>
+                        <form action="{{url_for('blue.root_prompt')}}" method="post" id="frm">
+                            <div class="input-group">    
+                                <input class="form-control" name="prompt" type="text" placeholder="write post title" aria-label="write post title" aria-describedby="button-search" />
+                                <button class="btn btn-primary" id="button-search" type="submit">Go!</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <!-- Categories widget-->
