@@ -1,6 +1,8 @@
 from main import *
 from flask import Blueprint, render_template
 from main.service import openAI_input, key
+import datetime
+import markdown 
 
 ## 선언부 ===================================================================================
 var_blue = Blueprint("blue", __name__, template_folder="templates", url_prefix='/blue')
@@ -19,14 +21,23 @@ def root_prompt():
 
     # 블로그 제목과 글을 생성합니다.
     content = openAI_input.prompt_factory.get_blog_content(key.openai_api_key, prompt)
-    print(f'content : "{content}"')
+
+    # 블로그 글의 요약문을 생성합니다.
+    summary = openAI_input.prompt_factory.get_summary(key.openai_api_key, content)
 
     # Unsplash에서 이미지 URL을 가져옵니다.
-    image_url = openAI_input.prompt_factory.get_image_url(key.unsplash_api_key, prompt)
+    image_url = openAI_input.prompt_factory.get_image_url(key.unsplash_api_key, summary)
+
+    # 생성된 글을 토대로 tag를 생성합니다.
+    tag = openAI_input.prompt_factory.get_tag(key.openai_api_key, summary)
 
     # Save the data as a CSV file.
-    data = [prompt, content.strip(), image_url]
+    data = [prompt, content, image_url]
     filename = prompt + '.csv'
     openAI_input.prompt_factory.save_to_csv(data, filename)
 
-    return render_template('index.html', prompt=prompt, content=content, image_url=image_url)
+    #today
+    today_now = datetime.datetime.now()
+    today = today_now.strftime('%Y-%m-%d')
+
+    return render_template('index.html', prompt=prompt, content=content, image_url=image_url, today=today, summary=summary, tags=tag)
