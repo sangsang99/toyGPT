@@ -1,13 +1,10 @@
 from main import *
 from flask import Blueprint, render_template
-from main.service import openAI_input, key
+from main.service import openAI_input, key, local_IO
 import datetime
-import markdown 
 
 ## 선언부 ===================================================================================
 var_blue = Blueprint("blue", __name__, template_folder="templates", url_prefix='/blue')
-
-
 
 # Tistory Open API URL
 tistory_post_url = 'https://www.tistory.com/apis/post/write'
@@ -15,6 +12,8 @@ tistory_post_url = 'https://www.tistory.com/apis/post/write'
 # csv저장 절대경로
 csv_path = 'D:\kukbee\openAI\csv\\'
 
+
+## index페이지 호출 ===================================================================================
 @var_blue.route('/', methods=['POST'])
 def root_prompt():
     prompt = request.form['prompt']
@@ -31,10 +30,10 @@ def root_prompt():
     # 생성된 글을 토대로 tag를 생성합니다.
     tag = openAI_input.prompt_factory.get_tag(key.openai_api_key, summary)
 
-    # Save the data as a CSV file.
+    # Save the data as a CSV file and IMG file.
     data = [prompt, content, image_url]
-    filename = prompt + '.csv'
-    openAI_input.prompt_factory.save_to_csv(data, filename)
+    local_IO.save_to_csv(data, prompt)
+    local_IO.save_url_img(image_url, prompt)
 
     #today
     today_now = datetime.datetime.now()
