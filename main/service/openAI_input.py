@@ -2,15 +2,28 @@
 import requests
 import json
 import random
-from google.cloud import translate_v2 as translate
+from main.service import key
 
-## 선언부 ===================================================================================
-# Tistory Open API URL
-tistory_post_url = 'https://www.tistory.com/apis/post/write'
 
+## 번역기 ===================================================================================
+
+def google_translate(text, target_language):
+    import six
+    from google.cloud import translate_v2 as translate
+
+    translate_client = translate.Client()
+
+    if isinstance(text, six.binary_type):
+        text = text.decode("utf-8")
+
+    # Text can also be a sequence of strings, in which case this method
+    # will return a sequence of results for each text.
+    result = translate_client.translate(text, target_language=target_language)
+    return result['translatedText']
+
+## 글 가져오기 / 이미지 가져오기 / csv로 저장하기 ===================================================================================
 class prompt_factory:
 
-    ## 글 가져오기 / 이미지 가져오기 / csv로 저장하기 ===================================================================================
     def get_blog_content(api_key, prompt, length=2000):
         """입력받은 prompt에 대한 블로그 제목과 글을 생성하는 함수"""
         
@@ -19,10 +32,8 @@ class prompt_factory:
                     you treat it as a post title and write the body text in markdown format within 2,000 characters. \
                     The next sentence is the prompt. "
         
-        # Set up the translation client, target(ko - en)
-        translate_client = translate.Client()
-        ko_prompt = prompt
-        en_prompt = translate_client.translate(ko_prompt, target_language='en')
+        # Set up the translation client, target(ko - en)   
+        en_prompt = google_translate(prompt, 'en')
 
         headers = {
             'Content-Type': 'application/json',
@@ -31,7 +42,7 @@ class prompt_factory:
 
         data = {
             'model': 'text-davinci-002',
-            'prompt': f'{prompt_opt}' + en_prompt['input'],
+            'prompt': f'{prompt_opt} + {en_prompt}',
             'temperature': 0.8,
             'max_tokens': length,
         }
@@ -40,19 +51,18 @@ class prompt_factory:
         result = json.loads(response.text)
         en_text = result['choices'][0]['text'].strip()
 
-        ko_text = translate_client.translate(en_text, target_language='ko')
+        # Set up the translation client, target(ko - en)   
+        ko_text = google_translate(en_text, 'ko')
 
-        return ko_text['translatedText']
+        return ko_text
     
     def get_summary(api_key, result_content, length=250):
         """prompt로 생성한 글을 요약해주는 함수"""
         
         prompt_opt = "Summarize the following content in two sentences or less. "
 
-        # Set up the translation client, target(ko - en)
-        translate_client = translate.Client()
-        ko_content = result_content
-        en_content = translate_client.translate(ko_content, target_language='en')
+        # Set up the translation client, target(ko - en)   
+        en_prompt = google_translate(result_content, 'en')
 
         headers = {
             'Content-Type': 'application/json',
@@ -61,7 +71,7 @@ class prompt_factory:
 
         data = {
             'model': 'text-davinci-002',
-            'prompt': f'{prompt_opt} + {en_content}',
+            'prompt': f'{prompt_opt} + {en_prompt}',
             'temperature': 0.8,
             'max_tokens': length,
         }
@@ -69,20 +79,16 @@ class prompt_factory:
         response = requests.post('https://api.openai.com/v1/completions', headers=headers, json=data)
         result = json.loads(response.text)
         en_text = result['choices'][0]['text'].strip()
-        ko_text = translate_client.translate(en_text, target_language='ko')
+        # Set up the translation client, target(ko - en)   
+        ko_text = google_translate(en_text, 'ko')
 
-        return ko_text['translatedText']
+        return ko_text
 
     def get_tag(api_key, result_content, length=500):
         """prompt로 생성한 글을 요약해주는 함수"""
         
         prompt_opt = "Generate 5 korean words close to following content. \
                      and don't use '#' in front the word, connect each word with comma. "
-        
-        """# Set up the translation client, target(ko - en)
-        translate_client = translate.Client()
-        ko_content = result_content
-        en_content = translate_client.translate(ko_content, target_language='en')"""
 
         headers = {
             'Content-Type': 'application/json',
@@ -99,8 +105,6 @@ class prompt_factory:
         response = requests.post('https://api.openai.com/v1/completions', headers=headers, json=data)
         result = json.loads(response.text)
         tags = result['choices'][0]['text'].strip().split(',')
-        """ko_tag = translate_client.translate(en_tag, target_language='ko')
-        tags = ko_tag['translatedText'].split(',')"""
         return tags
 
 
@@ -108,9 +112,8 @@ class prompt_factory:
         """입력받은 query에 대한 이미지 URL을 가져오는 함수"""
         
         # Set up the translation client, target(ko - en)
-        translate_client = translate.Client()
         ko_query = query
-        en_query = translate_client.translate(ko_query, target_language='en')
+        en_query = google_translate(ko_query, 'en')
 
         headers = {
             'Accept-Version': 'v1',
@@ -118,7 +121,7 @@ class prompt_factory:
         }
 
         params = (
-            ('query', en_query['translatedText']),
+            ('query', en_query),
             ('orientation', 'landscape'),
             ('per_page', '30'),
         )
