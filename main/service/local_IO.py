@@ -13,11 +13,11 @@ def save_to_csv(data, prompt):
     filename = csv_path + prompt + '.csv'
 
     if not os.path.exists(filename):
-        with open(filename, 'w', newline='') as file:
+        with open(filename, 'w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
-            writer.writerow(['title', 'content', 'image_url'])
+            writer.writerow(['title', 'content', 'image_url', 'summary' ,'tag'])
 
-    with open(filename, 'a', newline='') as file:
+    with open(filename, 'a', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
         writer.writerow(data)
 
