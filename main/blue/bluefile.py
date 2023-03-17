@@ -28,15 +28,33 @@ def root_prompt():
     image_url = openAI_input.prompt_factory.get_image_url(key.unsplash_api_key, summary)
 
     # 생성된 글을 토대로 tag를 생성합니다.
-    tag = openAI_input.prompt_factory.get_tag(key.openai_api_key, summary)
+    tags = openAI_input.prompt_factory.get_tag(key.openai_api_key, summary)
 
     #today
     today_now = datetime.datetime.now()
     today = today_now.strftime('%Y-%m-%d')
 
     # Save the data as a CSV file and IMG file.
-    data = [prompt, content, image_url, summary, tag]
+    data = [prompt, content, image_url, summary, tags]
     local_IO.save_to_csv(data, prompt)
     local_IO.save_url_img(image_url, prompt)
 
-    return render_template('index.html', prompt=prompt, content=content, image_url=image_url, today=today, summary=summary, tags=tag)
+    return render_template('index.html', prompt=prompt, content=content, image_url=image_url, today=today, summary=summary, tags=tags)
+
+## modify페이지 호출 ===================================================================================
+@var_blue.route('/modify', methods=['POST'])
+def modify_content():
+    
+    prompt = request.form['prompt']
+    dummy_data = local_IO.read_csv(prompt)
+
+    content = dummy_data['content']
+    image_url = dummy_data['image_path']
+    summary = dummy_data['summary']
+    tags = local_IO.compile_tags(dummy_data['tags'])
+    
+    #today
+    today_now = datetime.datetime.now()
+    today = today_now.strftime('%Y-%m-%d')
+
+    return render_template('modify.html', prompt=prompt, content=content, image_url=image_url, today=today, summary=summary, tags=tags)

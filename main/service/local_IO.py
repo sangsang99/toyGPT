@@ -33,3 +33,40 @@ def save_url_img(img_url, prompt) :
     # Save the image to a file
     filename = img_path + prompt + ".jpg"
     image.save(filename)
+
+
+#csv 파일에서 데이터 읽어오기
+def read_csv(prompt) :
+    csv_file_name = csv_path + prompt + '.csv'
+    with open(csv_file_name, 'r', encoding='utf-8') as f:
+        reader = csv.reader(f)
+        for i, row in enumerate(reader):
+            if i == 0:  # 첫 번째 줄인 경우 (header 정보가 없는 경우)
+                continue
+            else:  # 첫 번째 줄이 아닌 경우
+                title_col, content_col, image_col, summary_col, tags_col = 0, 1, 2, 3, 4  
+                
+            title, content, image_path, summary, tags = \
+                  row[title_col], row[content_col], row[image_col], row[summary_col], row[tags_col]
+
+            data = {
+                        'title': title,
+                        'content': content,
+                        'image_path': image_path,
+                        'summary': summary,
+                        'tags': tags  
+                    }          
+    return data
+
+def compile_tags(tags):
+
+    # Define the words to remove as a list
+    words_to_remove = ["'", "[", "]"]
+
+    # Remove the words using replace()
+    for word in words_to_remove:
+        tags = tags.replace(word, "")
+
+    tags = tags.split(",")
+
+    return tags
