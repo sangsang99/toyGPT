@@ -1,6 +1,11 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+<head>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/styles_modify.css')}}" /> 
+    <script src="{{url_for('static', filename='js/textarea.js')}}"></script>
+</head>
+    
     <div class="container mt-5">
         <div class="row">
             <div class="col-lg-8">
@@ -9,20 +14,22 @@
                     <!-- Post header-->
                     <header class="mb-4">
                         <!-- Post title-->
-                        <h1 class="fw-bolder mb-1">{{prompt}}</h1></br>
+                        <h1 class="fw-bolder mb-1"><input type="text" value="{{prompt}}" ></h1></br>
                         <!-- Post meta content-->
                         <div class="text-muted fst-italic mb-2">{{today}}</div>
                         <!-- Post categories-->
                         {% for tag in tags %}
-                        <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{tag}}</a>
+                        <a class="badge bg-secondary text-decoration-none link-light" href="#!">
+                            <input type="text" value="{{tag}}" id="tag"/></a>
+                        
                         {% endfor %}
                     </header>
                     <!-- Preview image figure--> <!--https://dummyimage.com/900x400/ced4da/6c757d.jpg-->
                     <figure class="mb-4"><img class="img-fluid rounded" src="{{ image_url }}" alt="..." /></figure>
                     <!-- Post content-->
                     <section class="mb-5">
-                        <h2 class="fw-bolder mb-4 mt-5">{{summary}}</h2>
-                        <p class="fs-5 mb-4">{{content}}</p>
+                        <h2 class="fw-bolder mb-4 mt-5"><textarea id="summary">{{summary}}</textarea></h2>
+                        <p class="fs-5 mb-4"><textarea id="content">{{content}}</textarea></p>
                     </section>
                 </article>
                 <!-- Comments section-->
@@ -36,7 +43,7 @@
                     <div class="card-body">
                         <form action="{{url_for('blue.root_prompt')}}" method="post" id="frm">
                             <div class="input-group">    
-                                <input class="form-control" name="prompt" type="text" placeholder="write post title" aria-label="write post title" aria-describedby="button-search" />
+                                <input class="form-control" id="new-prompt" name="prompt" type="text" placeholder="write post title" aria-label="write post title" aria-describedby="button-search" />
                                 <button class="btn btn-primary" id="button-search" type="submit">Go!</button>
                             </div>
                         </form>
