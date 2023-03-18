@@ -10,7 +10,7 @@ var_blue = Blueprint("blue", __name__, template_folder="templates", url_prefix='
 tistory_post_url = 'https://www.tistory.com/apis/post/write'
 
 # csv저장 절대경로
-csv_path = 'D:\kukbee\openAI\csv\\'
+csv_path = 'D:\프로젝트\02_openAI\openAI\csv\\'
 
 
 ## index페이지 호출 ===================================================================================

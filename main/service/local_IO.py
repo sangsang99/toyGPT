@@ -5,8 +5,8 @@ from io import BytesIO
 from PIL import Image
 
 #csv저장 절대경로
-csv_path = 'D:\kukbee\openAI\csv\\'
-img_path = 'D:\kukbee\openAI\main\static\src\img\\'
+csv_path = 'D:\프로젝트\\02_openAI\openAI\csv\\'
+img_path = 'D:\프로젝트\\02_openAI\openAI\main\static\src\img\\'
 
 def save_to_csv(data, prompt):
     """데이터를 입력받아 CSV 파일로 저장하는 함수"""
