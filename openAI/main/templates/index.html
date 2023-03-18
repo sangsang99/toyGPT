@@ -1,0 +1,95 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<!-- <script>
+    function btn_prompt(){
+        var form = document.getElementById('#frm');
+        form.submit();
+    }
+</script>
+-->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Post content-->
+                <article>
+                    <!-- Post header-->
+                    <header class="mb-4">
+                        <!-- Post title-->
+                        <h1 class="fw-bolder mb-1">{{prompt}}</h1></br>
+                        <!-- Post meta content-->
+                        <div class="text-muted fst-italic mb-2">{{today}}</div>
+                        <!-- Post categories-->
+                        {% for tag in tags %}
+                        <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{tag}}</a>
+                        {% endfor %}
+                    </header>
+                    <!-- Preview image figure--> <!--https://dummyimage.com/900x400/ced4da/6c757d.jpg-->
+                    <figure class="mb-4"><img class="img-fluid rounded" src="{{ image_url }}" alt="..." /></figure>
+                    <!-- Post content-->
+                    <section class="mb-5">
+                        <h2 class="fw-bolder mb-4 mt-5">{{summary}}</h2>
+                        <p class="fs-5 mb-4">{{content}}</p>
+                    </section>
+                </article>
+                <!-- Comments section-->
+                
+            </div>
+            <!-- Side widgets-->
+            <div class="col-lg-4">
+                <!-- Search widget-->
+                <div class="card mb-4">
+                    <div class="card-header">prompt 다시입력하기</div>
+                    <div class="card-body">
+                        <form action="{{url_for('blue.root_prompt')}}" method="post" id="frm">
+                            <div class="input-group">    
+                                <input class="form-control" name="prompt" type="text" placeholder="write post title" aria-label="write post title" aria-describedby="button-search" />
+                                <button class="btn btn-primary" id="button-search" type="submit">Go!</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- Categories widget-->
+                <div class="card mb-4">
+                    <div class="card-header">Categories</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <ul class="list-unstyled mb-0">
+                                    <li><a href="#!">Web Design</a></li>
+                                    <li><a href="#!">HTML</a></li>
+                                    <li><a href="#!">Freebies</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-6">
+                                <ul class="list-unstyled mb-0">
+                                    <li><a href="#!">JavaScript</a></li>
+                                    <li><a href="#!">CSS</a></li>
+                                    <li><a href="#!">Tutorials</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Side widget-->
+                <div class="card mb-4">
+                    <div class="card-header">카테고리 설정 안내</div>
+                    <div class="card-body">카테고리는 TistoryAPI에서 별도의 category-id를 받아야 설정 할 수 있습니다.</div>
+                </div>
+                <!-- 확인 후 포스팅하기 -->
+                <div class="card mb-4">
+                    <div class="card-header">조금 다듬고 싶으면</div>
+                    <form id="modi_frm" method="post" action="{{url_for('blue.modify_content')}}" > 
+                        <input type="text" name="prompt" id="prompt" style="display: none" value="{{prompt}}"/>
+                        <div class="card-body"><button type="submit">글수정</button></div>
+                    </form>                    
+                </div>
+                <!-- 즉시 포스팅하기 -->
+                <div class="card mb-4">
+                    <div class="card-header">버튼을 누르면 바로 포스팅!</div>
+                    <div class="card-body"><button>글작성</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
