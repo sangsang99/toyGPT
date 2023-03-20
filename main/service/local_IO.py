@@ -15,7 +15,7 @@ def save_to_csv(data, prompt):
     if not os.path.exists(filename):
         with open(filename, 'w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
-            writer.writerow(['title', 'content', 'image_url', 'summary' ,'tag'])
+            writer.writerow(['title', 'tag', 'image_url', 'summary', 'content'])
 
     with open(filename, 'a', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
@@ -44,17 +44,17 @@ def read_csv(prompt) :
             if i == 0:  # 첫 번째 줄인 경우 (header 정보가 없는 경우)
                 continue
             else:  # 첫 번째 줄이 아닌 경우
-                title_col, content_col, image_col, summary_col, tags_col = 0, 1, 2, 3, 4  
+                title_col, tags_col, image_col, summary_col, content_col  = 0, 1, 2, 3, 4  
                 
-            title, content, image_path, summary, tags = \
-                  row[title_col], row[content_col], row[image_col], row[summary_col], row[tags_col]
+            title, tags, image_path, summary, content = \
+                  row[title_col], row[tags_col], row[image_col], row[summary_col], row[content_col]
 
             data = {
                         'title': title,
-                        'content': content,
+                        'tags': tags,
                         'image_path': image_path,
                         'summary': summary,
-                        'tags': tags  
+                        'content': content,                         
                     }          
     return data
 
@@ -70,3 +70,26 @@ def compile_tags(tags):
     tags = tags.split(",")
 
     return tags
+
+def modify_csv(data, prompt):
+    filename = csv_path + prompt + '.csv'
+
+    if not os.path.exists(filename):
+        print("Error: CSV파일을 찾을 수 없습니다.")
+        return
+
+    with open(filename, 'r', newline='', encoding='utf-8') as file:
+        reader = csv.reader(file)
+        rows = list(reader)
+
+        # Modify the second line of the CSV file
+        if len(rows) > 1:
+            rows[1][0] = data['title']
+            rows[1][1] = data['tags']
+            rows[1][3] = data['summary']
+            rows[1][4] = data['content']
+
+    # Write the modified data back to the CSV file
+    with open(filename, 'w', newline='', encoding='utf-8') as file:
+        writer = csv.writer(file)
+        writer.writerows(rows)

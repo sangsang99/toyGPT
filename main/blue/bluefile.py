@@ -35,7 +35,7 @@ def root_prompt():
     today = today_now.strftime('%Y-%m-%d')
 
     # Save the data as a CSV file and IMG file.
-    data = [prompt, content, image_url, summary, tags]
+    data = [prompt, tags, image_url, summary, content]
     local_IO.save_to_csv(data, prompt)
     local_IO.save_url_img(image_url, prompt)
 
@@ -48,10 +48,10 @@ def modify_content():
     prompt = request.form['prompt']
     dummy_data = local_IO.read_csv(prompt)
 
-    content = dummy_data['content']
+    tags = local_IO.compile_tags(dummy_data['tags'])
     image_url = dummy_data['image_path']
     summary = dummy_data['summary']
-    tags = local_IO.compile_tags(dummy_data['tags'])
+    content = dummy_data['content']
     
     #today
     today_now = datetime.datetime.now()
@@ -62,14 +62,17 @@ def modify_content():
 @var_blue.route('/save', methods=['POST'])
 def save_modify_content():
     title = request.form['title']
-    
+    prompt = request.form['prompt']
+
     tags=[]
     tags_length = int(request.form['tag_length'])
     for i in range(tags_length):
         tags.append(request.form['tag'+str(i)])
 
-
     summary = request.form['summary']    
     content = request.form['content']
 
-    return render_template('result.html', title=title, content=content, summary=summary, tags=tags)
+    data = {'title' : title, 'tags' : tags, 'summary' : summary, 'content' : content}
+    local_IO.modify_csv(data, prompt)
+
+    return render_template('result.html', data=data)
