@@ -2,11 +2,9 @@
 import requests
 import json
 import random
-from main.service import key
-
+from main.service import path
 
 ## 번역기 ===================================================================================
-
 def google_translate(text, target_language):
     import six
     from google.cloud import translate_v2 as translate
@@ -24,7 +22,7 @@ def google_translate(text, target_language):
 ## 글 가져오기 / 이미지 가져오기 / csv로 저장하기 ===================================================================================
 class prompt_factory:
 
-    def get_blog_content(api_key, prompt, length=2000):
+    def get_blog_content(openAI_key, prompt, length=2000):
         """입력받은 prompt에 대한 블로그 제목과 글을 생성하는 함수"""
         
         prompt_opt = "I'm trying to write a blog post. \
@@ -37,7 +35,7 @@ class prompt_factory:
 
         headers = {
             'Content-Type': 'application/json',
-            'Authorization': f'Bearer {api_key}',
+            'Authorization': f'Bearer {openAI_key}',
         }
 
         data = {
@@ -47,7 +45,7 @@ class prompt_factory:
             'max_tokens': length,
         }
 
-        response = requests.post('https://api.openai.com/v1/completions', headers=headers, json=data)
+        response = requests.post(path.openAI_url, headers=headers, json=data)
         result = json.loads(response.text)
         en_text = result['choices'][0]['text'].strip()
 
@@ -56,7 +54,7 @@ class prompt_factory:
 
         return ko_text
     
-    def get_summary(api_key, result_content, length=250):
+    def get_summary(openAI_key, result_content, length=250):
         """prompt로 생성한 글을 요약해주는 함수"""
         
         prompt_opt = "Summarize the following content in two sentences or less. "
@@ -66,7 +64,7 @@ class prompt_factory:
 
         headers = {
             'Content-Type': 'application/json',
-            'Authorization': f'Bearer {api_key}',
+            'Authorization': f'Bearer {openAI_key}',
         }
 
         data = {
@@ -76,7 +74,7 @@ class prompt_factory:
             'max_tokens': length,
         }
 
-        response = requests.post('https://api.openai.com/v1/completions', headers=headers, json=data)
+        response = requests.post(path.openAI_url, headers=headers, json=data)
         result = json.loads(response.text)
         en_text = result['choices'][0]['text'].strip()
         # Set up the translation client, target(ko - en)   
@@ -84,7 +82,7 @@ class prompt_factory:
 
         return ko_text
 
-    def get_tag(api_key, result_content, length=500):
+    def get_tag(openAI_key, result_content, length=500):
         """prompt로 생성한 글을 요약해주는 함수"""
         
         prompt_opt = "Generate 5 korean words close to following content. \
@@ -92,7 +90,7 @@ class prompt_factory:
 
         headers = {
             'Content-Type': 'application/json',
-            'Authorization': f'Bearer {api_key}',
+            'Authorization': f'Bearer {openAI_key}',
         }
 
         data = {
@@ -102,13 +100,13 @@ class prompt_factory:
             'max_tokens': length,
         }
 
-        response = requests.post('https://api.openai.com/v1/completions', headers=headers, json=data)
+        response = requests.post(path.openAI_url, headers=headers, json=data)
         result = json.loads(response.text)
         tags = result['choices'][0]['text'].strip().split(',')
         return tags
 
 
-    def get_image_url(api_key, query):
+    def get_image_url(unsplash_key, query):
         """입력받은 query에 대한 이미지 URL을 가져오는 함수"""
         
         # Set up the translation client, target(ko - en)
@@ -117,7 +115,7 @@ class prompt_factory:
 
         headers = {
             'Accept-Version': 'v1',
-            'Authorization': f'Client-ID {api_key}',
+            'Authorization': f'Client-ID {unsplash_key}',
         }
 
         params = (
@@ -126,7 +124,7 @@ class prompt_factory:
             ('per_page', '30'),
         )
 
-        response = requests.get('https://api.unsplash.com/search/photos', headers=headers, params=params)
+        response = requests.get(path.unsplash_url, headers=headers, params=params)
         results = json.loads(response.text)['results']
         
         if len(results) > 0:

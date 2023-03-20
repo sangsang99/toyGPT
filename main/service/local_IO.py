@@ -3,14 +3,11 @@ import os
 import requests
 from io import BytesIO
 from PIL import Image
-
-#csv저장 절대경로
-csv_path = 'D:\프로젝트\\02_openAI\openAI\csv\\'
-img_path = 'D:\프로젝트\\02_openAI\openAI\main\static\src\img\\'
+from main.service import path
 
 def save_to_csv(data, prompt):
     """데이터를 입력받아 CSV 파일로 저장하는 함수"""
-    filename = csv_path + prompt + '.csv'
+    filename = path.csv_path + prompt + '.csv'
 
     if not os.path.exists(filename):
         with open(filename, 'w', newline='', encoding='utf-8') as file:
@@ -31,13 +28,13 @@ def save_url_img(img_url, prompt) :
     image = Image.open(BytesIO(response.content))
 
     # Save the image to a file
-    filename = img_path + prompt + ".jpg"
+    filename = path.img_path + prompt + ".jpg"
     image.save(filename)
 
 
 #csv 파일에서 데이터 읽어오기
 def read_csv(prompt) :
-    csv_file_name = csv_path + prompt + '.csv'
+    csv_file_name = path.csv_path + prompt + '.csv'
     with open(csv_file_name, 'r', encoding='utf-8') as f:
         reader = csv.reader(f)
         for i, row in enumerate(reader):
@@ -72,7 +69,7 @@ def compile_tags(tags):
     return tags
 
 def modify_csv(data, prompt):
-    filename = csv_path + prompt + '.csv'
+    filename = path.csv_path + prompt + '.csv'
 
     if not os.path.exists(filename):
         print("Error: CSV파일을 찾을 수 없습니다.")
