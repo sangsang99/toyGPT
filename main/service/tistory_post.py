@@ -30,12 +30,12 @@ def post_to_blog(prompt, blog_key, blog_name):
                 'output': 'json',                       #필수
                 'blogName': blog_name,                  #필수
                 'title': title,                         #필수
-                'content': f'<img src="{image_path}" /><br/>{content}',
+                'content': f'<img src="{image_path}" /><br/><h4>{summary}</h4><br/>{content}',
                 'visibility' : 0,                       #(0:비공개[default], 1:보호, 3:발행)
                 'category' : 0,                         #카테고리아이디 0[delfault]
                 #'published' : '',                      #발행시간 TIMESTAMP이며 미래시간=예약시간, 현재시간[default]
                 #'slogan' : '',                         #(문자 주소)
-                'tag' : '',                             #(','로 구분)
+                'tag' : tag_filter(tags),               #(','로 구분)
                 'acceptComment' : 1,                    #댓글 허용 (0, 1[default])
                 #'password' : '',                       #보호글 비밀번호
             }        
@@ -46,3 +46,13 @@ def post_to_blog(prompt, blog_key, blog_name):
             else:
                 print(f'"{title}" 글 작성에 실패했습니다.')
                 print(post_response)
+
+def tag_filter(str_tags):
+    # Define the words to remove as a list
+    words_to_remove = ["'", "[", "]", " "]
+
+    # Remove the words using replace()
+    for word in words_to_remove:
+        str_tags = str_tags.replace(word, "")
+    
+    return str_tags

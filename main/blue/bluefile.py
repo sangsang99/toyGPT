@@ -1,6 +1,6 @@
 from main import *
 from flask import Blueprint, render_template
-from main.service import openAI_input, key, local_IO
+from main.service import openAI_input, key, local_IO, tistory_post
 import datetime
 
 ## 선언부 ===================================================================================
@@ -67,5 +67,7 @@ def save_modify_content():
 
     data = {'title' : title, 'tags' : tags, 'summary' : summary, 'content' : content}
     local_IO.modify_csv(data, prompt)
+
+    tistory_post.post_to_blog(prompt, blog_key=key.access_token, blog_name=key.blog_name)
 
     return render_template('result.html', data=data)
