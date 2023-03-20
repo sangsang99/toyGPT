@@ -61,7 +61,7 @@ def read_csv(prompt) :
 def compile_tags(tags):
 
     # Define the words to remove as a list
-    words_to_remove = ["'", "[", "]"]
+    words_to_remove = ["'", "[", "]", " "]
 
     # Remove the words using replace()
     for word in words_to_remove:

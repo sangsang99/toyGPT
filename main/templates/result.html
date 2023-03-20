@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+title : {{title}} </br>
+
+{% for tag in tags%}
+tag{{ loop.index -1 }} : {{tag}} </br>
+{% endfor %}
+
+summary : {{summary}} </br>
+
+content : {{content}} </br>
+
+{% endblock %}

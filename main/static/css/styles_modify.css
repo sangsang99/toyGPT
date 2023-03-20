@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
 input[type="text"]:not(#new-prompt){
+    width: 100%;
     border: none;
 }
 

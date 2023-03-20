@@ -58,3 +58,18 @@ def modify_content():
     today = today_now.strftime('%Y-%m-%d')
 
     return render_template('modify.html', prompt=prompt, content=content, image_url=image_url, today=today, summary=summary, tags=tags)
+
+@var_blue.route('/save', methods=['POST'])
+def save_modify_content():
+    title = request.form['title']
+    
+    tags=[]
+    tags_length = int(request.form['tag_length'])
+    for i in range(tags_length):
+        tags.append(request.form['tag'+str(i)])
+
+
+    summary = request.form['summary']    
+    content = request.form['content']
+
+    return render_template('result.html', title=title, content=content, summary=summary, tags=tags)
