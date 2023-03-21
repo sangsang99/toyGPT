@@ -102,7 +102,7 @@ class prompt_factory:
 
         response = requests.post(path.openAI_url, headers=headers, json=data)
         result = json.loads(response.text)
-        tags = result['choices'][0]['text'].strip().split(',')
+        tags = result['choices'][0]['text'].strip().replace(" ","").split(',')
         return tags
 
 

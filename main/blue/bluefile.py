@@ -41,7 +41,7 @@ def modify_content():
     prompt = request.form['prompt']
     dummy_data = local_IO.read_csv(prompt)
 
-    tags = local_IO.compile_tags(dummy_data['tags'])
+    tags = dummy_data['tags']
     image_url = dummy_data['image_path']
     summary = dummy_data['summary']
     content = dummy_data['content']

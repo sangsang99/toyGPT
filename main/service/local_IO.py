@@ -3,7 +3,7 @@ import os
 import requests
 from io import BytesIO
 from PIL import Image
-from main.service import path
+from main.service import path, common
 
 def save_to_csv(data, prompt):
     """데이터를 입력받아 CSV 파일로 저장하는 함수"""
@@ -48,25 +48,12 @@ def read_csv(prompt) :
 
             data = {
                         'title': title,
-                        'tags': tags,
+                        'tags': common.compile_tags(tags, 'split'),
                         'image_path': image_path,
                         'summary': summary,
                         'content': content,                         
                     }          
     return data
-
-def compile_tags(tags):
-
-    # Define the words to remove as a list
-    words_to_remove = ["'", "[", "]", " "]
-
-    # Remove the words using replace()
-    for word in words_to_remove:
-        tags = tags.replace(word, "")
-
-    tags = tags.split(",")
-
-    return tags
 
 def modify_csv(data, prompt):
     filename = path.csv_path + prompt + '.csv'
