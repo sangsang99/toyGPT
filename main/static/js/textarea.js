@@ -14,3 +14,20 @@
 //     textarea.current.style.height = 'auto';
 //     textarea.current.style.height = textarea.current.scrollHeight + 'px';
 // }
+
+
+
+var textarea = document.getElementById("summary");
+
+function resizeTextarea() {
+    textarea.style.height = "auto";
+    textarea.style.height = textarea.scrollHeight + "px";    
+}
+
+window.onload = function() {
+    resizeTextarea();
+}
+
+textarea.addEventListener("input", function() {
+    resizeTextarea();
+  });
