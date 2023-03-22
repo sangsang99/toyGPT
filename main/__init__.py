@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect,render_template
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
@@ -6,7 +6,6 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return render_template('hello.html')
-
 
 #blue모듈 설정
 from main.blue import bluefile
