@@ -6,3 +6,20 @@
 **변수**는 저장된 값을 변경할 수 있는 메모리 공간입니다. 변수는 프로그램 실행 중 코드에 의해 언제든지 변경될 수 있습니다. 변수는 변경될 수 있기 때문에 이름이 중요하기 때문에 명명법을 따라 적절한 이름을 지어줍니다.
 
 **상수**는 값이 바뀔 수 없는 메모리 공간을 의미합니다. 상수는 코드에 의해 변경될 수 없으며, 상수는 프로그램이 끝날 때까지 같은 값을 유지합니다. 상수는 한 번 정해진 값이기 때문에 값을 변경할 수 없습니다.","변수는 저장된 값을 변경할 수 있는 메모리 공간이고, 상수는 값이 바뀔 수 없는 메모리 공간입니다.","변수상수,차이는무엇,프로그래밍언어,변수,상수,변하는값,상수값,수학변수,고정값,프로그래밍기초","https://source.unsplash.com/1600x900/?variable,constant,difference","""?variable,constant,difference (https://v5.airtableusercontent.com/v1/15/15/1677924000000/4pbhbCB5NCHnKv-J6KS3jQ/8BrzJW6Dhc4dCCi9yTi10vzV0WguAuNKQVs29Z6BmbsycQ_9il2THRcziaT7syGUtYki-GlMjYX4a929ke3DrwyCOH7PNB3mdca6mdGnBCfZLOKfMe4yRjUt5EU-jbBn/fAjcwM6QqWdTtZi3XNFOcyf6Is-7AL3rJKhI3nMx_-Q)""",checked
+2. 객체 지향 프로그래밍이란 무엇인가요?,프로그래밍 언어(by.chatGPT),checked,"## 2. 객체 지향 프로그래밍이란 무엇인가요?
+
+객체 지향 프로그래밍(Object-Oriented Programming, OOP)은 프로그래밍 언어를 사용하여 소프트웨어를 개발하는 방법이다. OOP는 데이터를 모듈화하고 재사용하는 방법을 제공하여 개발 속도를 높이고 유지 보수를 용이하게 해준다. 
+OOP의 기본 원리는 프로그램을 작은 객체로 나누고, 각각의 객체는 자신의 속성과 기능을 가지고 있다는 것이다. 각 객체는 다른 객체에 의해 관리되고 사용될 수 있으며, 이러한 것들은 객체 간의 통신 방식을 이용하여 전달된다. 객체 간의 관계는 상속, 다형성, 캡슐화 등의 개념으로 이해하기 쉬운 시스템이 될 수 있다. 객체 지향 프로그래밍은 소프트웨어 개발에 있어서 더욱 유연하고 생산적인 방법을 제공한다.",객체 지향 프로그래밍은 소프트웨어를 모듈화하고 재사용하는 방법을 제공하여 개발 속도를 높이고 유지 보수를 용이하게 해주는 방법이다.,"객체지향프로그래밍,프로그래밍언어,OOP,C++,Java,Python,C#,코딩,컴퓨터공학,소프트웨어공학","https://source.unsplash.com/1600x900/?programming,object-oriented-programming","""?programming,object-oriented-programming (https://v5.airtableusercontent.com/v1/15/15/1677924000000/wHa60TPxL-CXvml81TBP_g/hInQ-VahkCsjSL1KOJusgF-0-goSRz_f1ccrcg_gTlW-Sy3b2VwM-_Iwrq-EkEJSWJqiNqo9oK3bsXPk8Wh56xwDAWRG6pVB7g2UP4hPv3sxKLj0siIXI5_f8r6zkXbv/yB3uCG5JEkGQ08EtKrFt2B7VKf9qRpqyvO_NQVzyfxM)""",checked
+3. 인터페이스와 추상 클래스의 차이는 무엇인가요?,프로그래밍 언어(by.chatGPT),checked,"'---
+
+## 3. 인터페이스와 추상 클래스의 차이는 무엇인가요?
+
+인터페이스와 추상 클래스는 객체 지향 프로그래밍(OOP)에서 매우 중요한 개념이다. 각각의 차이점은 다음과 같다.
+
+### 인터페이스
+
+인터페이스는 구체적인 코드가 없는 메소드들과 상수들의 모음이다. 인터페이스는 메소드의 재정의를 강제하고 구현을 강제하기 때문에 정확한 작업이 가능하다. 인터페이스는 다중 상속을 지원하기 때문에 다양한 클래스에 같은 메소드를 적용할 수 있다.
+
+### 추상 클래스
+
+추상 클래스는 인터페이스와 비슷하지만, 구체적인 코드가 포함될 수 있다. 추상 클래스는 객체를 생성하지는 못하지만, 하위 클래스에 메소드나 상수를 상속할 수 있다. 추상 클래스는 다중 상속이 불가능하지만, 다중 구현이 가능하다.","인터페이스는 구체적인 코드가 없는 메소드들과 상수들의 모음이며, 추상 클래스는 인터페이스와 비슷하지만 구체적인 코드를 포함할 수 있다. Summarize your answer to: 인터페이스는 구체적인 코드가 없는 메소드들과 상수들의 모음이며, 추상 클래스는 구체적인 코드가 포함될 수 있다.","인터페이스,추상클래스,차이,프로그래밍,언어,인터페이스와추상클래스,차이는무엇인가,프로그래밍언어,인터페이스와추상클래스차이,chatGPT","https://source.unsplash.com/1600x900/?interface,abstract,class,difference","""?interface,abstract,class,difference (https://v5.airtableusercontent.com/v1/15/15/1677924000000/esENYeT5SRcb0crBWfbd6Q/gVs4EC51gVhBMnSUT69RJmQPz0h1TJJLgjeO_BQEu7Bw4O5q7NuBfeYqRIQXTOgMJviakYj4EM6DKgI9fp4OwzJK8NZzSYSphsbLdyUiO4bGD-bYdOb0PhwOF2tJQynU/oJjkjnMDFHCPmg2ODF-aLNoWJDW-aW2a9rWp3ICcoOo)""",checked
