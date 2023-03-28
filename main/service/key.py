@@ -1,5 +1,5 @@
 # OpenAI API와 Unsplash API 키를 가져옵니다.
-openai_api_key = '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'
+openai_api_key = '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'
 unsplash_api_key = 'j4rsrj3w0tfUhsMYHDANh8XErA7SOFfXvWG_2aNamRc'
 
 # Tstory API 정보

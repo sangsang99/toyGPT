@@ -2,9 +2,11 @@
 <p>사용자의 단 한줄 입력 만으로 </br>
 '글, 요약문, 사진, 태그' 등의 정보를 포함한 블로그(Tistory) 게시글을 작성할 수 있는 사이트입니다. </br>
 내용이 마음에 들지 않으면 수정하여 포스팅 할 수 있습니다.</p>
+
 *python/flask/jinja2, openAI-API, gcloud-API-Translate, Tistory-API, unsplash-API를 사용합니다.*
 
 <p>사용시 주의 : 최초 입력한 'prompt'를 기준으로 파일명이 결정되니 title(수정된 prompt)와 혼동하지 않도록합니다</p>
+
 ### 진행
 1. (Ver1.1.x) 웹서버 연결 후 기본 서비스페이지 제작 </br>
     *(프롬프트 입력(create) - 결과확인(read) - 결과수정(update) - 결과포스팅(Tistory - API))*

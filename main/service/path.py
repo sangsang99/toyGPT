@@ -9,5 +9,6 @@ tistory_post_file_url = 'https://www.tistory.com/apis/post/attach'
 unsplash_url = 'https://api.unsplash.com/search/photos'
 
 #절대경로
-csv_path = 'D:\프로젝트\toyGPT\mysite\csv\\' 
-img_path = 'D:\프로젝트\toyGPT\mysite\main\static\src\img\\'
+csv_path = 'D:\프로젝트\\toyGPT\mysite\main\static\src\csv\\' 
+
+img_path = 'D:\프로젝트\\toyGPT\mysite\main\static\src\img\\'

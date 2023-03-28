@@ -1,6 +1,6 @@
 from main import *
 from flask import Blueprint, render_template
-from flask import Flask, request, redirect,render_template
+from flask import request, redirect
 from main.service import openAI_input, key, local_IO, tistory_post
 import datetime
 
